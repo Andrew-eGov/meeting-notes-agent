@@ -1,0 +1,13 @@
+{
+  "name": "meeting-notes",
+  "version": "0.1.0",
+  "description": "Turns meetings into structured Markdown notes filed by project. Works with any calendar and any notetaker connector, or just transcript files.",
+  "author": {
+    "name": "Andrew Jones",
+    "url": "https://github.com/Andrew-eGov"
+  },
+  "homepage": "https://github.com/Andrew-eGov/meeting-notes-agent",
+  "repository": "https://github.com/Andrew-eGov/meeting-notes-agent",
+  "license": "MIT",
+  "keywords": ["meetings", "notes", "transcripts", "granola", "calendar", "productivity"]
+}

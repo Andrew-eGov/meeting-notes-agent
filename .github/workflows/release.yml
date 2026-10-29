@@ -1,0 +1,19 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: ./scripts/validate.sh
+      - run: ./scripts/package-skill.sh
+      - env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" dist/meeting-notes-skill.zip --title "$GITHUB_REF_NAME" --notes "See CHANGELOG.md. Upload meeting-notes-skill.zip in Claude → Settings → Capabilities → Skills."

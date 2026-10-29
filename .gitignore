@@ -1,0 +1,14 @@
+# Never commit real meeting data
+Meetings/
+_inbox/
+*.ledger.jsonl
+.ledger.jsonl
+
+# Build output
+dist/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

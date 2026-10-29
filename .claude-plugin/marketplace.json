@@ -1,0 +1,16 @@
+{
+  "name": "meeting-notes-agent",
+  "description": "Meeting Notes Agent: turns meetings into structured Markdown notes filed by project.",
+  "owner": {
+    "name": "Andrew Jones",
+    "url": "https://github.com/Andrew-eGov"
+  },
+  "plugins": [
+    {
+      "name": "meeting-notes",
+      "source": "./",
+      "description": "Turns meetings into structured Markdown notes filed by project. Works with any calendar and any notetaker connector, or just transcript files.",
+      "version": "0.1.0"
+    }
+  ]
+}
