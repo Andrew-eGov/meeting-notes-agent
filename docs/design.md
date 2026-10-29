@@ -35,11 +35,11 @@ The agent has to work for anyone: any Claude account, any machine, any calendar,
 | Area | Decision |
 |---|---|
 | Format | A single Agent Skill (`SKILL.md` plus references and templates), shipped as a Claude Code plugin, an uploadable skill zip, and plain files |
-| Triggers | On demand (`/meeting-notes` with optional date, range, `init`, `setup`, `review`, `status`) and any scheduler (desktop app, cron, Task Scheduler) |
+| Triggers | After each meeting ends (checks at +10/45/180 min), when a transcript lands in `_inbox/`, a daily 6 pm reconcile, and on demand. A watcher script decides when to start Claude, so idle checks cost nothing |
 | Which meetings | Calendar-first when a calendar is connected (all accepted meetings with other attendees). Transcript-first when not |
 | Lookback | Today plus `catch_up_days` (default 7), capped at `max_meetings_per_run` (default 25) |
-| Transcript sources | Any notetaker connector, found by capability, then the `_inbox/` folder (Wispr, Zoom downloads, voice memos, …). Order is set in config |
-| Workspace | `--dir`, then `$MEETING_NOTES_DIR`, then `./Meetings` |
+| Transcript sources | Any notetaker connector found by capability, then documents attached to the calendar invite, then the `_inbox/` folder (Wispr, Zoom downloads, voice memos, …). Order is set in config |
+| Workspace | `--dir`, then `$MEETING_NOTES_DIR`, then `./Meetings`. Local paths, synced cloud folders, or `drive:` (Google Drive through the connector) |
 | Layout | `<Folder>/YYYY-MM-DD_slug/` with `notes.md` and `transcript.md`; `_unsorted/` for meetings with no clear project |
 | Note sections | Front matter, TL;DR, Decisions, Action items (owner, due date), Discussion, Open questions |
 | Re-runs | The ledger records what's done. Completed notes are never touched; placeholders are upgraded when a transcript appears |

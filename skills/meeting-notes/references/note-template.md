@@ -19,10 +19,10 @@ attendees:
   - Priya Shah <priya@example.com>
 folder: Acme
 also_in: [Hiring]          # other matching folders, or []
-source: granola            # provider name, inbox subfolder (e.g. wispr), or none
-status: complete           # complete | placeholder
+source: granola            # connector name, attachment:<provider>, inbox:<subfolder>, or none
+status: complete           # complete | provisional (built from dictation/notes; upgraded when a transcript arrives) | placeholder
 routing: rule              # rule | pending-rule | unsorted
-agent_version: 0.1.0
+agent_version: 0.2.0
 ---
 
 # Acme weekly sync — 2026-10-29

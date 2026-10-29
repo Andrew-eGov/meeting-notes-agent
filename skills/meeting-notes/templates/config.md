@@ -5,11 +5,12 @@ Edit this file to change how the agent behaves; it's read on every run. Any sett
 ## Sources
 
 - calendar: auto              # auto | google | outlook | none
-- sources: connectors, inbox  # order to look for transcripts; you can name providers, e.g. granola, fireflies, inbox
-- match_window_minutes: 15    # how close a transcript's start must be to the meeting's start
+- sources: connectors, local, attachments, inbox  # order to look for transcripts; connectors = Granola etc., local = Muesli etc. You can also name providers, e.g. muesli, granola, inbox
+- match_window_minutes: 15    # a transcript matches if it starts between (meeting start - this) and (meeting end + this)
 
 ## Schedule window
 
+- after_meeting_checks: 10, 45, 180  # minutes after a meeting ends to look for its transcript (quick runs)
 - catch_up_days: 7            # each run also fills in meetings from the last N days that are still missing
 - setup_lookback_days: 30     # how far back `setup` looks when proposing folders
 - max_meetings_per_run: 25    # the rest are picked up on the next run

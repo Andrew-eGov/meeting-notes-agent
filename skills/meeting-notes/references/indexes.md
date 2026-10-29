@@ -7,10 +7,12 @@ Generated files are designed to stay fast with thousands of meetings: the agent 
 One JSON object per line, one line per meeting. To update a meeting, rewrite its line (read the file, replace the line with the same `meeting_id`, then write it back). Never keep two lines for the same id.
 
 ```json
-{"meeting_id":"abc123","date":"2026-10-29","start":"14:00","title":"Acme weekly sync","folder":"Acme","also_in":["Hiring"],"path":"Acme/2026-10-29_acme-weekly-sync","status":"complete","source":"granola","open_actions":2,"updated":"2026-10-29T18:04:00Z"}
+{"meeting_id":"abc123","date":"2026-10-29","start":"14:00","title":"Acme weekly sync","folder":"Acme","also_in":["Hiring"],"path":"Acme/2026-10-29_acme-weekly-sync","status":"complete","series_id":"abc","source":"granola","notes_sha256":"9f2c…","open_actions":2,"updated":"2026-10-29T18:04:00Z"}
 ```
 
-- `status`: `complete` | `placeholder`
+- `status`: `complete` | `provisional` | `placeholder`
+- `notes_sha256`: SHA-256 of `notes.md` as the agent wrote it (to detect user edits)
+- `series_id`: optional, for recurring meetings
 - `path`: relative to `<ws>`
 - Sensitive meetings never get a ledger line.
 
@@ -43,12 +45,18 @@ _Updated 2026-10-29 18:04 by meeting-notes. Generated file: don't edit it by han
 - [2026-09](_log/2026-09.md) · [2026-08](_log/2026-08.md)
 ```
 
-- "Mine" = items whose owner matches `owner_name` in config.
+Leave out the "Older" section when there are no older months.
+
+- "Mine" = items whose owner matches `owner_name` in config; they're shown without the `@owner` prefix. Everything else goes under "Others", including `@unassigned`.
+- Order: days newest first; meetings within a day by start time; action items by meeting date (oldest first, since they've been open longest).
+- Paths with spaces are written with `%20` in links (`Project%20Falcon/…`).
 - An item is open while its checkbox is `- [ ]`. To gather the open items, read only the notes whose ledger line has `open_actions > 0`, and refresh that count while reading.
 
 ## _log/YYYY-MM.md (full history, one file per month)
 
 Rewrite only the months that had meetings added, upgraded or moved in this run.
+
+Newest first.
 
 ```markdown
 # Meetings — October 2026
@@ -64,7 +72,7 @@ Rewrite only for folders that got a new, upgraded or moved meeting (or a cross-l
 ```markdown
 # Acme
 
-_Rule status: active · Updated 2026-10-29 18:04_
+_Rule status: active · Updated 2026-10-29 18:04_   ← always fill in the date and time of this run
 
 ## Where things stand
 3–5 sentences synthesized from this folder's most recent meetings (and linked ones): current status, latest decisions, what's next. Base it on the notes, not on guesses.
@@ -81,3 +89,19 @@ _Rule status: active · Updated 2026-10-29 18:04_
 ```
 
 To write "Where things stand", read the previous summary plus the notes from this run only, rather than re-reading the folder's whole history.
+
+## .schedule.json (read by the trigger script)
+
+Rewritten at the end of every Quick and Run. It lists when to look for transcripts of today's and tomorrow's meetings that don't have a complete note yet: one check per `after_meeting_checks` offset after each meeting's end. Leave out checks more than 24 hours old. It holds ids and times only, never titles or attendees.
+
+```json
+{
+  "generated": "2026-10-29T18:04:00Z",
+  "checks": [
+    {"meeting_id": "abc123", "at": "2026-10-30T10:55:00Z", "at_epoch": 1793357700},
+    {"meeting_id": "abc123", "at": "2026-10-30T11:30:00Z", "at_epoch": 1793359800}
+  ]
+}
+```
+
+`at_epoch` is Unix seconds (UTC). Work it out exactly (e.g. with `date -u -d … +%s` on Linux or `date -u -j -f … +%s` on macOS) rather than estimating it.

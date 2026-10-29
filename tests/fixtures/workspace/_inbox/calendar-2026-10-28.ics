@@ -1,0 +1,65 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Mock//Meeting Notes Test//EN
+BEGIN:VEVENT
+UID:evt-acme-weekly@mock
+SUMMARY:Acme weekly sync
+DTSTART:20261028T100000Z
+DTEND:20261028T104500Z
+RRULE:FREQ=WEEKLY;BYDAY=WE
+DESCRIPTION:Weekly status with Acme on the Falcon beta.
+ORGANIZER;CN=Alex Rivera:mailto:alex@northwind.example
+ATTENDEE;CN=Alex Rivera;PARTSTAT=ACCEPTED:mailto:alex@northwind.example
+ATTENDEE;CN=Sam Lee;PARTSTAT=ACCEPTED:mailto:sam.lee@acme.com
+ATTENDEE;CN=Priya Shah;PARTSTAT=ACCEPTED:mailto:priya@northwind.example
+END:VEVENT
+BEGIN:VEVENT
+UID:evt-acme-pricing@mock
+SUMMARY:Pricing call
+DTSTART:20261028T113000Z
+DTEND:20261028T120000Z
+DESCRIPTION:Discuss renewal pricing.
+ATTENDEE;CN=Alex Rivera;PARTSTAT=ACCEPTED:mailto:alex@northwind.example
+ATTENDEE;CN=Dana Cole;PARTSTAT=ACCEPTED:mailto:dana@acme.com
+END:VEVENT
+BEGIN:VEVENT
+UID:evt-falcon-review@mock
+SUMMARY:Project Falcon design review
+DTSTART:20261028T130000Z
+DTEND:20261028T133000Z
+DESCRIPTION:Review onboarding screens.
+ATTENDEE;CN=Alex Rivera;PARTSTAT=ACCEPTED:mailto:alex@northwind.example
+ATTENDEE;CN=Ben Ortiz;PARTSTAT=ACCEPTED:mailto:ben@northwind.example
+END:VEVENT
+BEGIN:VEVENT
+UID:evt-coffee-jo@mock
+SUMMARY:Coffee with Jo
+DTSTART:20261028T150000Z
+DTEND:20261028T153000Z
+ATTENDEE;CN=Alex Rivera;PARTSTAT=ACCEPTED:mailto:alex@northwind.example
+ATTENDEE;CN=Jo Park;PARTSTAT=ACCEPTED:mailto:jo@gmail.com
+END:VEVENT
+BEGIN:VEVENT
+UID:evt-hr-checkin@mock
+SUMMARY:HR check-in
+DTSTART:20261028T160000Z
+DTEND:20261028T163000Z
+ATTENDEE;CN=Alex Rivera;PARTSTAT=ACCEPTED:mailto:alex@northwind.example
+ATTENDEE;CN=Morgan Hale;PARTSTAT=ACCEPTED:mailto:hr@northwind.example
+END:VEVENT
+BEGIN:VEVENT
+UID:evt-vendor-demo@mock
+SUMMARY:Vendor demo
+DTSTART:20261028T170000Z
+DTEND:20261028T173000Z
+ATTENDEE;CN=Alex Rivera;PARTSTAT=DECLINED:mailto:alex@northwind.example
+ATTENDEE;CN=Rep;PARTSTAT=ACCEPTED:mailto:rep@vendorco.example
+END:VEVENT
+BEGIN:VEVENT
+UID:evt-focus@mock
+SUMMARY:Focus time
+DTSTART:20261028T080000Z
+DTEND:20261028T093000Z
+ATTENDEE;CN=Alex Rivera;PARTSTAT=ACCEPTED:mailto:alex@northwind.example
+END:VEVENT
+END:VCALENDAR

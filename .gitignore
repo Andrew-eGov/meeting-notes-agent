@@ -1,8 +1,7 @@
-# Never commit real meeting data
-Meetings/
-_inbox/
-*.ledger.jsonl
-.ledger.jsonl
+# Never commit real meeting data (test fixtures under tests/ are fake and allowed)
+/Meetings/
+/_inbox/
+/.ledger.jsonl
 
 # Build output
 dist/

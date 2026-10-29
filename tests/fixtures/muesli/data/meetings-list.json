@@ -1,0 +1,5 @@
+[{"id":101,"title":"Acme weekly sync","startTime":"2026-10-28T10:01:12Z","durationSeconds":2580,"wordCount":160,"folderID":null,"notesState":"structured_notes"},
+ {"id":102,"title":"Untitled meeting","startTime":"2026-10-28T11:31:05Z","durationSeconds":1700,"wordCount":110,"folderID":null,"notesState":"raw_transcript_fallback"},
+ {"id":103,"title":"Project Falcon design review","startTime":"2026-10-28T13:00:40Z","durationSeconds":0,"wordCount":0,"folderID":null,"notesState":"missing"},
+ {"id":104,"title":"HR check-in","startTime":"2026-10-28T16:00:30Z","durationSeconds":1500,"wordCount":40,"folderID":null,"notesState":"raw_transcript_fallback"},
+ {"id":99,"title":"Old sync","startTime":"2026-09-30T09:00:00Z","durationSeconds":1200,"wordCount":90,"folderID":null,"notesState":"structured_notes"}]

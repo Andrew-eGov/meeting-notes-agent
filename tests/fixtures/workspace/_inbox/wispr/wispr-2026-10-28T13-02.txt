@@ -1,0 +1,5 @@
+Project Falcon design review, quick notes dictated by Alex.
+Ben walked through the new onboarding screens. We decided to cut the welcome video and go with a three-step checklist instead.
+Ben will update the Figma file with the checklist version by Thursday.
+I need to share the screens with Acme before next week's sync.
+Still open: do we need a separate onboarding path for admin users?

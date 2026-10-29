@@ -14,7 +14,17 @@ How a meeting is assigned to a folder under `<ws>/`. Folders can be projects, cl
 - notes: Client work for Acme Corp
 ```
 
-Any signal line can be missing. Matching is case-insensitive. Title and description keywords match whole words or phrases. Folder names are the `##` headings and must be valid folder names: no `/ \ : * ? " < > |`.
+Any signal line can be missing. Matching is case-insensitive. Title and description keywords match whole words or phrases. Folder names are the `##` headings and must be valid folder names: no `/ \ : * ? " < > |`. Spaces are allowed; in Markdown links, write them as `%20`.
+
+When you add the first rule, remove the template's "_No rules yet…_" line. `_unsorted/` is not a rule folder and gets no `_project.md`.
+
+The note's `routing` value is `rule` when the deciding rule is `active`, `pending-rule` when it's `pending` (including a pending rule created earlier in the same run), and `unsorted` otherwise.
+
+Meetings are routed oldest first, using the rules as they stand at that moment.
+
+If you find a meeting folder (anything except `_unsorted`) that has no section in `routing.md`, for example after an interrupted run, add a `pending` rule for it built from its meetings' signals, and queue it in `_pending.md`.
+
+For `series:`, write the recurring meeting's **title** (people read and edit this file). Add the series id only if two different series share a title.
 
 ## Matching a meeting
 
@@ -47,11 +57,12 @@ Before creating a folder, check for a near-duplicate (same name ignoring case or
 
 When creating a folder:
 1. Make the folder and an empty `_project.md`.
-2. Append a rule with `status: pending` and only the signal that triggered it.
+2. Append a rule with `status: pending`. Include every clear signal this meeting gives for the folder: its external domain, its recurring series, and the project or client name as a title keyword. Leave out generic words.
 3. Add a line to `_pending.md`:
    ```markdown
    - [ ] New folder **Acme** (pending rule: domains: acme.com). Created 2026-10-29 from "Intro call with Acme"
    ```
+   The date is the run date. Add one line per new folder, not one per meeting.
 4. Set `routing: pending-rule` in the note's front matter.
 
 Otherwise (one-off coffee chats, ad-hoc 1:1s, vague titles, only internal or personal attendees, not part of a series) → `_unsorted/`, with `routing: unsorted`.
