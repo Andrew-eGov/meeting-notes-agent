@@ -12,6 +12,7 @@
 #   MEETING_NOTES_HEARTBEAT_MIN  run a quick check at least this often during the day (default 120, 0 = off)
 #   MEETING_NOTES_HOURS          hours when heartbeat runs may happen, "start-end" (default 8-19)
 #   MEETING_NOTES_TIMEOUT_MIN    give up on a single run after this long (default 30)
+#   MEETING_NOTES_NOW            pretend it's this ISO time (tests/replays); passed to the agent as --now
 #   MUESLI_DB                    Muesli database to watch (default: ~/Library/Application Support/Muesli/muesli.db)
 set -euo pipefail
 
@@ -29,7 +30,7 @@ done
 heartbeat_min="${MEETING_NOTES_HEARTBEAT_MIN:-120}"
 hours="${MEETING_NOTES_HOURS:-8-19}"
 timeout_min="${MEETING_NOTES_TIMEOUT_MIN:-30}"
-allowed_tools='Read Write Edit Glob Grep Bash(mkdir:*) Bash(mv:*) Bash(rm:*) Bash(ls:*) Bash(cat:*) Bash(find:*) Bash(date:*) Bash(stat:*) Bash(osascript:*) Bash(notify-send:*) Bash(muesli-cli:*) Bash(/Applications/Muesli.app/Contents/MacOS/muesli-cli:*) mcp__*'
+allowed_tools='Read Write Edit Glob Grep Bash(mkdir:*) Bash(mv:*) Bash(rm:*) Bash(ls:*) Bash(cat:*) Bash(find:*) Bash(date:*) Bash(stat:*) Bash(cp:*) Bash(touch:*) Bash(rmdir:*) Bash(jq:*) Bash(shasum:*) Bash(sha256sum:*) Bash(echo:*) Bash(osascript:*) Bash(notify-send:*) Bash(muesli-cli:*) Bash(/Applications/Muesli.app/Contents/MacOS/muesli-cli:*) mcp__*'
 
 log="$ws/.trigger.log"
 state="$ws/.trigger-state"   # mtime and content = start time of the last successful run
@@ -94,12 +95,14 @@ say "starting: ${reasons[*]}"
 # Stamp the start time now, so files that arrive during the run are picked up next time
 echo "$now" > "$start"
 cd "$(dirname "$ws")"
+args="$mode --locked"
+[ -n "${MEETING_NOTES_NOW:-}" ] && args="$args --now $MEETING_NOTES_NOW"
 if [ -n "${MEETING_NOTES_CMD:-}" ]; then
   # Run through a shell so quoting in the custom command works; the mode is passed as "$1"
-  run=(bash -c "$MEETING_NOTES_CMD \"\$1\"" meeting-notes "$mode --locked")
+  run=(bash -c "$MEETING_NOTES_CMD \"\$1\"" meeting-notes "$args")
 else
   # shellcheck disable=SC2086
-  run=(claude -p "/meeting-notes:meeting-notes $mode --locked --dir $ws" --permission-mode acceptEdits --allowedTools $allowed_tools)
+  run=(claude -p "/meeting-notes:meeting-notes $args --dir $ws" --permission-mode acceptEdits --allowedTools $allowed_tools)
 fi
 
 if command -v timeout >/dev/null; then run=(timeout "$(( timeout_min * 60 ))" "${run[@]}"); fi

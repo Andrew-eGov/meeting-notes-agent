@@ -10,6 +10,21 @@ All test data is fictional (Acme, Northwind, Project Falcon on 2026-10-28).
 
 This runs 20 scenarios against `scripts/meeting-notes-trigger.sh` with a fake Claude command: inbox files, due post-meeting checks, locks (held, stale, released after failure), the daily reconcile, Muesli database changes, and the heartbeat.
 
+## End-to-end (local, needs the claude CLI signed in)
+
+```bash
+./tests/e2e.sh
+```
+
+This replays a mock workday through the real pipeline: watcher script → `claude -p` (headless) → the plugin loaded from this repo → files. No connectors are loaded. The steps:
+
+1. The day's transcripts are in the inbox. A quick run must file everything and pass all 83 checks in `check_mock.py`.
+2. Nothing is new. Claude must not start.
+3. A late dictation arrives. Only the placeholder note may change.
+4. A daily reconcile with nothing new. No file may change, and the lock must be released.
+
+The mock clock is set through `MEETING_NOTES_NOW`, which the watcher passes to the agent as `--now`. A full run takes about 4–5 minutes. Use `--dry-run` to test the harness without Claude.
+
 ## Agent runs (manual, since they need an AI agent)
 
 1. Build a mock workspace:

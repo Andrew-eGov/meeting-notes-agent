@@ -10,7 +10,7 @@
       "name": "meeting-notes",
       "source": "./",
       "description": "Turns meetings into structured Markdown notes filed by project. Works with any calendar and any notetaker connector, or just transcript files.",
-      "version": "0.2.0"
+      "version": "0.2.1"
     }
   ]
 }

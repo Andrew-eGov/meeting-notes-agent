@@ -88,6 +88,7 @@ Init never overwrites existing files.
 
 ## Preflight (every mode)
 
+0. **Clock.** Work out "now" before anything else: use the `--now <ISO time>` argument if there is one, otherwise run `echo "${MEETING_NOTES_NOW:-}"` and use that if it isn't empty, otherwise use the system clock (`date -u`). A set time (used by tests and replays) counts as the current time everywhere: "today", which meetings have ended, the checks in `.schedule.json`, and every timestamp you write.
 1. **Resolve `<ws>`** and read `config.md`. Fall back to the defaults in `<skill>/templates/config.md` for any missing key, so older workspaces keep working after updates.
 2. **Discover sources** with `<skill>/references/providers.md`:
    - a **calendar** source (optional),

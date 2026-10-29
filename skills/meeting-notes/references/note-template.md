@@ -22,7 +22,7 @@ also_in: [Hiring]          # other matching folders, or []
 source: granola            # connector name, attachment:<provider>, inbox:<subfolder>, or none
 status: complete           # complete | provisional (built from dictation/notes; upgraded when a transcript arrives) | placeholder
 routing: rule              # rule | pending-rule | unsorted
-agent_version: 0.2.0
+agent_version: 0.2.1
 ---
 
 # Acme weekly sync — 2026-10-29
